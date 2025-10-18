@@ -99,10 +99,11 @@ class HDevice(ui2.Device):
             )
 
             # TODO 这里做了一个异常修复，不是很完美
-            fix_results = [
-                [result[0], result[1].strip().lower().replace(" ", "")]
-                for result in results
-            ]
+            fix_results = []
+            for result in results:
+                text = result[1].strip().lower().replace(" ", "")
+                result[1] = text
+                fix_results.append(result)
 
             # 调试模式下保存带标注的图片
             if self.debug and fix_results:
