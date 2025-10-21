@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="hui2",
-    version="0.2",
+    version="0.2.1",
     author="h1code2",
     author_email="h1code2@163.com",
     description="Android automation library with OCR support based on uiautomator2",
