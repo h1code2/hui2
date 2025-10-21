@@ -10,19 +10,19 @@ from rapidocr_onnxruntime import RapidOCR, VisRes
 
 
 class HDevice(ui2.Device):
-    debug: bool = False
+    ocr_debug: bool = False
 
     def __init__(
-            self, device_serial: str, text_score: float = 0.7, debug: bool = False
+            self, device_serial: str, text_score: float = 0.7, ocr_debug: bool = False
     ):
         """
         :param device_serial: 设备名或者Wi-Fi连接的地址（需要附带端口）
         :param text_score: ocr 识别的相似度控制
-        :param debug: debug模式
+        :param ocr_debug: debug模式
         """
         self.engine = RapidOCR(text_score=text_score)
-        if debug:
-            self.debug = debug
+        if ocr_debug:
+            self.ocr_debug = ocr_debug
             logger.debug("调试模式已启用")
             self.vis = VisRes()
         super().__init__(device_serial)
@@ -106,7 +106,7 @@ class HDevice(ui2.Device):
                 fix_results.append(result)
 
             # 调试模式下保存带标注的图片
-            if self.debug and fix_results:
+            if self.ocr_debug and fix_results:
                 debug_image = cv2.imread(image_path)
                 boxes, _, scores = list(zip(*fix_results))
                 res = self.vis(debug_image, boxes)
